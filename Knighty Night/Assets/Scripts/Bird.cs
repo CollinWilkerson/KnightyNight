@@ -11,6 +11,7 @@ public class Bird : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
     private AudioSource _audioSource;
+    private GameObject _catapult;
 
     public bool IsDragging { get; private set; }
 
@@ -26,12 +27,19 @@ public class Bird : MonoBehaviour
     {
         //stores the original position of the bird for launch
         _startPosition = _rigidbody2D.position;
+        //gets catapult spoon
+        _catapult = GameObject.FindGameObjectWithTag("Catapult");
         //freezes the bird before launch
         _rigidbody2D.isKinematic = true;
     }
 
     private void OnMouseDown()
     {
+        if (!_catapult.GetComponent<Catapult>()._PositionSet)
+        {
+            Debug.Log("Unlocked and Clicked");
+            return;
+        }
         //recolors our bird sprite to indicate click
         _spriteRenderer.color = Color.red;
         IsDragging = true;
@@ -39,6 +47,8 @@ public class Bird : MonoBehaviour
     
     private void OnMouseUp()
     {
+        if (!_catapult.GetComponent<Catapult>()._PositionSet)
+            return;
         //gets the released position of the bird
         Vector2 currentPosition = _rigidbody2D.position;
         //gets the direction from currentPosition to _startPosition
@@ -57,6 +67,8 @@ public class Bird : MonoBehaviour
 
     private void OnMouseDrag()
     {
+        if (!_catapult.GetComponent<Catapult>()._PositionSet)
+            return;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector2 desiredPosition = mousePosition;

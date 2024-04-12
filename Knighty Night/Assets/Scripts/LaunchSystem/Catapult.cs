@@ -11,6 +11,7 @@ public class Catapult : MonoBehaviour
     private Vector2 _hingePosition;
     private float _distanceFromHinge;
     private SpriteRenderer _spriteRenderer;
+    private Transform _playerLocation;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class Catapult : MonoBehaviour
     {
         _hingePosition = _hinge.transform.position;
         _distanceFromHinge = Vector2.Distance(transform.position, _hingePosition);
+        _playerLocation = GameObject.FindGameObjectWithTag("Player").transform;
         
     }
 
@@ -50,5 +52,11 @@ public class Catapult : MonoBehaviour
         }
 
         transform.position = mousePosition;
+        _playerLocation.position = mousePosition;
+    }
+    private void OnMouseUp()
+    {
+        _spriteRenderer.color = Color.white;
+        _PositionSet = true;
     }
 }
