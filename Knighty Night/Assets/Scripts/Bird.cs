@@ -37,7 +37,7 @@ public class Bird : MonoBehaviour
     {
         if (!_catapult.GetComponent<Catapult>()._PositionSet)
         {
-            Debug.Log("Unlocked and Clicked");
+            Debug.Log("locked and Clicked");
             return;
         }
         //recolors our bird sprite to indicate click

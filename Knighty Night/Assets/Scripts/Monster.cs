@@ -8,9 +8,11 @@ public class Monster : MonoBehaviour
 {
     [SerializeField] Sprite _deadSprite;
     [SerializeField] ParticleSystem _particleSystem;
+    [SerializeField] float _enemyHealth = 10;
 
     bool _hasDied;
 
+    //plays audio after a random amount of time
     private IEnumerator Start()
     {
         while (_hasDied == false)
@@ -23,11 +25,13 @@ public class Monster : MonoBehaviour
             }
         }
     }
+    //plays audio on click
     private void OnMouseDown()
     {
         GetComponent<AudioSource>().Play();
     }
 
+    //begins collision detections
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (ShouldDieFromCollision(collision))
@@ -36,18 +40,24 @@ public class Monster : MonoBehaviour
         }
     }
 
+    //Kills the enemy if it recives enough damage
     private bool ShouldDieFromCollision(Collision2D collision)
     {
+        //killing the enemy after they are dead delays their death and causes visual glitches
         if (_hasDied)
             return false;
-        Bird bird = collision.gameObject.GetComponent<Bird>();
-        if (bird != null)
+
+        //enemy takes full damage if they are hit by the player, and half if they are hit by anything else
+        if (collision.gameObject.CompareTag("Player"))
+            _enemyHealth -= collision.relativeVelocity.magnitude;
+        else
+            _enemyHealth -= collision.relativeVelocity.magnitude / 2;
+
+        //if the enemy has no health kill them
+        if (_enemyHealth <= 0)
             return true;
-        if(collision.contacts[0].normal.y < -0.5)
-        {
-            return true;
-        }
-        return false;
+        else
+            return false;
     }
 
     private IEnumerator Die()

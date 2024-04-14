@@ -13,9 +13,13 @@ public class Catapult : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Transform _playerLocation;
 
+    private Vector3 _startPosition;
+
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _startPosition = transform.position;
     }
 
     private void Start()
@@ -58,5 +62,17 @@ public class Catapult : MonoBehaviour
     {
         _spriteRenderer.color = Color.white;
         _PositionSet = true;
+    }
+
+    public Vector2 GetLaunchVector()
+    {
+        Vector2 spoonDirection = (new Vector2(transform.position.x,transform.position.y) - _hingePosition).normalized;
+        return new Vector2(spoonDirection.y, -spoonDirection.x);
+    }
+
+    public void ResetSpoon()
+    {
+        transform.SetPositionAndRotation(_startPosition,transform.rotation);
+        _PositionSet = false;
     }
 }
