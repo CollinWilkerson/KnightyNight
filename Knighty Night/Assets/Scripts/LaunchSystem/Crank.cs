@@ -73,6 +73,7 @@ public class Crank : MonoBehaviour
     {
         Fire = false;
         power = 0;
+        spinAngle = 0;
         transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, 0));
     }
 }

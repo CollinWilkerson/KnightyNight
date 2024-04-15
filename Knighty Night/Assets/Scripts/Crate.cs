@@ -5,6 +5,7 @@ using UnityEngine;
 public class Crate : MonoBehaviour
 {
     [SerializeField] AudioClip[] _clips;
+    [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] float objectDurability = 20;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,7 +27,8 @@ public class Crate : MonoBehaviour
         //Destroys the Crate if its Durability runs out
         if (objectDurability <= 0)
         {
-            Destroy(gameObject);
+            _particleSystem.Play();
+            Destroy(gameObject, 0.1f);
         }
     }
 }

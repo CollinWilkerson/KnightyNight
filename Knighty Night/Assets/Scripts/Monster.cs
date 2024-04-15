@@ -7,11 +7,18 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [SerializeField] Sprite _deadSprite;
+    [SerializeField] Sprite _damagedSprite;
     [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] float _enemyHealth = 10;
 
+    private float _enemyMaxHealth;
+
     bool _hasDied;
 
+    private void Awake()
+    {
+        _enemyMaxHealth = _enemyHealth;
+    }
     //plays audio after a random amount of time
     private IEnumerator Start()
     {
@@ -56,6 +63,11 @@ public class Monster : MonoBehaviour
         //if the enemy has no health kill them
         if (_enemyHealth <= 0)
             return true;
+        else if(_enemyHealth < _enemyMaxHealth / 2)
+        {
+            GetComponent<SpriteRenderer>().sprite = _damagedSprite;
+            return false;
+        }
         else
             return false;
     }
