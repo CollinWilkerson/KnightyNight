@@ -47,6 +47,11 @@ public class Catapult : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float distance = Vector2.Distance(mousePosition, _hinge.transform.position);
 
+        if (mousePosition.x > _hingePosition.x)
+            mousePosition.x = _hingePosition.x;
+        if (mousePosition.y < _hingePosition.y)
+            mousePosition.y = _hingePosition.y;
+
         if (distance != _distanceFromHinge)
         {
             //gets the direction the player is dragging in
@@ -55,8 +60,12 @@ public class Catapult : MonoBehaviour
             mousePosition = _hingePosition + (direction * _distanceFromHinge);
         }
 
+        Vector2 ThreeToTwo = transform.position;
+        Vector2 hingeToSpoon = (ThreeToTwo - _hingePosition);
         transform.position = mousePosition;
-        _playerLocation.position = mousePosition;
+        transform.rotation = Quaternion.Euler(0,0,-Mathf.Asin(hingeToSpoon.y/hingeToSpoon.magnitude) * Mathf.Rad2Deg);
+        Vector2 offset = new Vector2(0.1f, 0.2f);
+        _playerLocation.position = mousePosition + offset;
     }
     private void OnMouseUp()
     {
@@ -73,6 +82,9 @@ public class Catapult : MonoBehaviour
     public void ResetSpoon()
     {
         transform.SetPositionAndRotation(_startPosition,transform.rotation);
+        Vector2 ThreeToTwo = transform.position;
+        Vector2 hingeToSpoon = (ThreeToTwo - _hingePosition);
+        transform.rotation = Quaternion.Euler(0, 0, -Mathf.Asin(hingeToSpoon.y / hingeToSpoon.magnitude) * Mathf.Rad2Deg);
         _PositionSet = false;
     }
 }

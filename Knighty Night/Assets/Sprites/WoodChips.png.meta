@@ -383,7 +383,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      WoodChips_0: -8057831659438120962
+      WoodChips_1: -5232440686535922697
+      WoodChips_10: 888019685452752493
+      WoodChips_2: -4138459802600614309
+      WoodChips_3: -1179537212446622615
+      WoodChips_4: -3263641671101070996
+      WoodChips_5: 7432692537855437585
+      WoodChips_6: 4272019843015367968
+      WoodChips_7: 7040818085634765598
+      WoodChips_8: 55895992347946539
+      WoodChips_9: 1578118747052986473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

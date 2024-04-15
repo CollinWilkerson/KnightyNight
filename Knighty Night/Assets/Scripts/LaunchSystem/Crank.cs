@@ -43,14 +43,14 @@ public class Crank : MonoBehaviour
             }
             if (powerUp)
             {
-                spinAngle += 100 * Time.deltaTime;
+                spinAngle += 20 * Time.deltaTime * _crankSpeed;
                 transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, spinAngle));
                 power += _crankSpeed * Time.deltaTime;
                 //Debug.Log("Rotation: " + transform.rotation.z + 180);            
             }
             else
             {
-                spinAngle -= 100 * Time.deltaTime;
+                spinAngle -= 20 * Time.deltaTime * _crankSpeed;
                 transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, spinAngle));
                 power -= _crankSpeed * Time.deltaTime;
             }
@@ -75,5 +75,10 @@ public class Crank : MonoBehaviour
         power = 0;
         spinAngle = 0;
         transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, 0));
+    }
+
+    public float GetRotation()
+    {
+        return spinAngle;
     }
 }
